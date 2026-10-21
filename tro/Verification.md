@@ -109,3 +109,19 @@ The local file-alias compatibility install emits a pnpm peer-range warning despi
 The release/queue unit suite passed **8 tests**. Core build/declaration generation, strict catalog checking, scoped lint, catalog build, formatting and diff whitespace checks passed. The named consumer's production dependency audit reported **0 known vulnerabilities**. The previous full catalog and targeted upstream checks remain recorded above; this work does not claim a new complete accessibility audit.
 
 The source fork is ducnguyen67201/TroDesign, branch codex/tro-open-world. npm authentication initially returned E401; an official npm web login flow was opened for the account owner. A local tarball or source commit must not be described as a published registry release; publication status is checked separately.
+
+## Featherlane AI UI release submission — October 21, 2026
+
+The confirmed npm owner is danielbaker06072001 and the final package is **@danielbaker06072001/featherlane-ai-ui@9.5.0**. Source and distribution documentation use the display name **Featherlane AI UI**. The public theme API remains createTroTheme and TroDesignOptions. The renamed package passed the eight release/queue tests, strict catalog checking, scoped lint, formatting, core/declaration and catalog builds, and independent local-tarball consumer checks recorded above.
+
+After the account owner completed npm login and publication passkey checks, `pnpm tro:publish` exited successfully and reported the package published. Independent checks did **not** confirm a usable registry release: the npm website showed the temporary `0.0.0-stage` holding version, while npm registry metadata for the package returned E404. Both the website Staged Packages list and `npm stage list` returned no pending review entries. An attempt to submit the same reviewed artifact to the staging area returned E409, stating version 9.5.0 had already been published. No version was changed or security setting weakened to bypass this state.
+
+The upload has been accepted, but registry installation of 9.5.0 remains unverified and unavailable at this check. Do not describe the CLI success message alone as a working public release. Recheck registry availability before recommending the registry install command; complete independent registry consumer verification once it is available.
+
+The tested local artifact is also available at `/Users/ducng/Desktop/TroDesignForkReview/FeatherlaneAiUi-9.5.0.tgz`. Consumers can use it immediately with:
+
+```sh
+pnpm add /Users/ducng/Desktop/TroDesignForkReview/FeatherlaneAiUi-9.5.0.tgz @emotion/react @emotion/styled
+```
+
+React and React DOM remain application prerequisites. The source is pushed to the user's fork at `https://github.com/ducnguyen67201/TroDesign/tree/codex/tro-open-world`; the customized branch is separate from the upstream default branch.

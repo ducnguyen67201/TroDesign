@@ -1,6 +1,6 @@
-# Tro Design package guide
+# {{PACKAGE_TITLE}} package guide
 
-Tro Design is a local fork of Material UI v9.5.0, baseline `1c3f8b4903f21cfad12c102edb3db4ceba2e8c8c`. It supplies an original Tro Open World theme and original classroom examples while retaining upstream component behavior, MIT attribution and license notices.
+Featherlane AI UI is a customized fork of Material UI v9.5.0, baseline `1c3f8b4903f21cfad12c102edb3db4ceba2e8c8c`. It supplies an original Tro Open World theme and original classroom examples while retaining upstream component behavior, MIT attribution and license notices.
 
 ## Package identity and installation
 

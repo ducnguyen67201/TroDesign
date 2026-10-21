@@ -1,4 +1,4 @@
-# Tro Design — Open World
+# Featherlane AI UI — Tro Open World
 
 This is a local fork of Material UI v9.5.0, baseline commit `1c3f8b4903f21cfad12c102edb3db4ceba2e8c8c`.
 The original MIT license, source attribution and upstream documentation are retained.
@@ -76,20 +76,20 @@ The sidebar covers the free core component families across Inputs, Data display,
 
 The GitHub fork is https://github.com/ducnguyen67201/TroDesign, with parent mui/material-ui. `origin` is the personal fork; `upstream` points to mui/material-ui and has pushing disabled locally. Tro work lives on `codex/tro-open-world`, based on the pinned v9.5.0 baseline. No upstream branch is overwritten.
 
-The distribution identity is **@ducnguyen67201/tro-ui@9.5.0**, owned by `tro/PackageConfig.ts`. The distribution version tracks its compatible upstream API so Material icon peer ranges remain valid. The source workspace intentionally retains upstream `@mui/*` names. `pnpm tro:package` builds the fork, stages an isolated `.tro-package`, rewrites exact self-imports and declaration augmentations to the distribution name, resolves workspace dependency ranges to registry versions, sets fork metadata and a Tro README, and writes the tarball in `.tro-dist`. It preserves the original MIT license and attribution. The build output used by the catalog stays unchanged.
+The distribution identity is **@danielbaker06072001/featherlane-ai-ui@9.5.0**, owned by `tro/PackageConfig.ts`. The distribution version tracks its compatible upstream API so Material icon peer ranges remain valid. The source workspace intentionally retains upstream `@mui/*` names. `pnpm tro:package` builds the fork, stages an isolated `.tro-package`, rewrites exact self-imports and declaration augmentations to the distribution name, resolves workspace dependency ranges to registry versions, sets fork metadata and a Tro README, and writes the tarball in `.tro-dist`. It preserves the original MIT license and attribution. The build output used by the catalog stays unchanged.
 
 After publication, new consumers can install:
 
 ```sh
-pnpm add @ducnguyen67201/tro-ui @emotion/react @emotion/styled
+pnpm add @danielbaker06072001/featherlane-ai-ui @emotion/react @emotion/styled
 ```
 
-Use deep imports such as `@ducnguyen67201/tro-ui/Button` and `@ducnguyen67201/tro-ui/styles`. Before registry publication, install the generated local tarball instead. A successful tarball build does not mean npm publication succeeded. Current npm authentication must be checked separately.
+Use deep imports such as `@danielbaker06072001/featherlane-ai-ui/Button` and `@danielbaker06072001/featherlane-ai-ui/styles`. Before registry publication, install the generated local tarball instead. A successful tarball build does not mean npm publication succeeded. Current npm authentication must be checked separately.
 
 For existing apps and Material icon peers, install the compatibility alias instead:
 
 ```sh
-pnpm add @mui/material@npm:@ducnguyen67201/tro-ui@9.5.0
+pnpm add @mui/material@npm:@danielbaker06072001/featherlane-ai-ui@9.5.0
 ```
 
 Keep `@mui/material/...` imports in that installation mode and use one mode consistently. Do not install the official component package alongside the fork accidentally. React/React DOM and Emotion remain consumer peers. Optional Pigment integration remains a separate upstream integration.

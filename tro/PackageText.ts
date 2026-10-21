@@ -4,6 +4,7 @@ import packageConfig from './PackageConfig';
 export default function formatPackageText(template: string): string {
   const result = template
     .replaceAll('{{PACKAGE_NAME}}', packageConfig.name)
+    .replaceAll('{{PACKAGE_TITLE}}', packageConfig.displayName)
     .replaceAll('{{PACKAGE_VERSION}}', packageConfig.version)
     .replaceAll('{{UPSTREAM_VERSION}}', packageConfig.upstreamVersion)
     .replaceAll('{{REPOSITORY}}', packageConfig.repository);

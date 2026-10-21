@@ -115,7 +115,7 @@ export async function stageReleasePackage(root: string): Promise<void> {
     ...manifest,
     name: packageConfig.name,
     version: packageConfig.version,
-    description: 'Tro Open World design system: a configurable, MIT-licensed Material UI fork.',
+    description: `${packageConfig.displayName}: a configurable design system built from a Material UI fork.`,
     author: 'Duc Nguyen',
     contributors: [{ name: 'MUI Team' }],
     repository: {

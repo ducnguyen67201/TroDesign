@@ -1,11 +1,11 @@
-# Tro Design assistant entry point
+# Featherlane AI UI assistant entry point
 
 This checkout/package is a Tro-branded fork of Material UI, not an official upstream release.
-The distribution is @ducnguyen67201/tro-ui; this source workspace keeps @mui/material names.
+The distribution is @danielbaker06072001/featherlane-ai-ui; this source workspace keeps @mui/material names.
 Read `llms.txt`, then `llms-full.txt`, before generating UI or changing Tro-specific styling.
 The guides describe the actual package identity, public exports, project setup and limitations.
 
-Use `createTroTheme({ design })` from `@ducnguyen67201/tro-ui/styles` in distribution consumers.
+Use `createTroTheme({ design })` from `@danielbaker06072001/featherlane-ai-ui/styles` in distribution consumers.
 Use @mui/material/styles in the source workspace or compatibility alias installation.
 Keep deep component imports and inherited public contracts. Reuse semantic roles and shared
 component defaults rather than hardcoding a second palette in application components.

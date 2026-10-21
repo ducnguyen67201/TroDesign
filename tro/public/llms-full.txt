@@ -1,23 +1,23 @@
-# Tro Design package guide
+# Featherlane AI UI package guide
 
-Tro Design is a local fork of Material UI v9.5.0, baseline `1c3f8b4903f21cfad12c102edb3db4ceba2e8c8c`. It supplies an original Tro Open World theme and original classroom examples while retaining upstream component behavior, MIT attribution and license notices.
+Featherlane AI UI is a customized fork of Material UI v9.5.0, baseline `1c3f8b4903f21cfad12c102edb3db4ceba2e8c8c`. It supplies an original Tro Open World theme and original classroom examples while retaining upstream component behavior, MIT attribution and license notices.
 
 ## Package identity and installation
 
-Distribution package: **@ducnguyen67201/tro-ui@9.5.0**. The source workspace retains its upstream `@mui/material` identity for maintenance; the release builder produces a distinct package and rewrites self-imports/declaration augmentations to the distribution name. This is the actual forked component implementation, not a thin theme wrapper around the official component package.
+Distribution package: **@danielbaker06072001/featherlane-ai-ui@9.5.0**. The source workspace retains its upstream `@mui/material` identity for maintenance; the release builder produces a distinct package and rewrites self-imports/declaration augmentations to the distribution name. This is the actual forked component implementation, not a thin theme wrapper around the official component package.
 
-After registry publication, install `@ducnguyen67201/tro-ui` with React/React DOM and Emotion peers. Before publication, install its tested local `.tgz` artifact. Do not claim a registry release exists just because a local package builds. The GitHub fork is https://github.com/ducnguyen67201/TroDesign.
+After registry publication, install `@danielbaker06072001/featherlane-ai-ui` with React/React DOM and Emotion peers. Before publication, install its tested local `.tgz` artifact. Do not claim a registry release exists just because a local package builds. The GitHub fork is https://github.com/ducnguyen67201/TroDesign.
 
-For an existing app or icon integration, the compatibility installation is `@mui/material@npm:@ducnguyen67201/tro-ui@9.5.0`; retain the app's `@mui/material/...` imports in that mode. Use one installation mode consistently to avoid a duplicate official Material UI installation. Package-name imports and declaration augmentation should point to the distribution name. Material icons remain a separate package; they expect the Material UI peer, which the compatibility alias satisfies.
+For an existing app or icon integration, the compatibility installation is `@mui/material@npm:@danielbaker06072001/featherlane-ai-ui@9.5.0`; retain the app's `@mui/material/...` imports in that mode. Use one installation mode consistently to avoid a duplicate official Material UI installation. Package-name imports and declaration augmentation should point to the distribution name. Material icons remain a separate package; they expect the Material UI peer, which the compatibility alias satisfies.
 
 MUI X, Lab and commercial templates are not included in the core component package. No registry installation of the official `@mui/material` package supplies Tro additions.
 
 ## One configuration per project
 
-Use a typed TypeScript setup file. Import the public TroDesignOptions type from `@ducnguyen67201/tro-ui/styles`; do not import sibling repository source.
+Use a typed TypeScript setup file. Import the public TroDesignOptions type from `@danielbaker06072001/featherlane-ai-ui/styles`; do not import sibling repository source.
 
 ```tsx
-import type { TroDesignOptions } from '@ducnguyen67201/tro-ui/styles';
+import type { TroDesignOptions } from '@danielbaker06072001/featherlane-ai-ui/styles';
 
 export const projectDesign = {
   fontFamily: 'Arial, Helvetica, sans-serif',
@@ -33,9 +33,9 @@ export const projectDesign = {
 ```
 
 ```tsx
-import CssBaseline from '@ducnguyen67201/tro-ui/CssBaseline';
-import Button from '@ducnguyen67201/tro-ui/Button';
-import { createTroTheme, ThemeProvider } from '@ducnguyen67201/tro-ui/styles';
+import CssBaseline from '@danielbaker06072001/featherlane-ai-ui/CssBaseline';
+import Button from '@danielbaker06072001/featherlane-ai-ui/Button';
+import { createTroTheme, ThemeProvider } from '@danielbaker06072001/featherlane-ai-ui/styles';
 import { projectDesign } from './ProjectDesign';
 
 const theme = createTroTheme({ design: projectDesign });
@@ -60,7 +60,7 @@ Pair action with onAction and accent with onAccent; verify contrast for custom p
 
 ## Component usage
 
-Use one-level deep imports, for example `@ducnguyen67201/tro-ui/Autocomplete`. Prefer composed components such as TextField and Dialog for ordinary tasks. Use lower-level primitives only when the task needs them. Public component declarations in the package are the authority for prop/slot types. Do not infer that every upstream documentation recipe is a package export.
+Use one-level deep imports, for example `@danielbaker06072001/featherlane-ai-ui/Autocomplete`. Prefer composed components such as TextField and Dialog for ordinary tasks. Use lower-level primitives only when the task needs them. Public component declarations in the package are the authority for prop/slot types. Do not infer that every upstream documentation recipe is a package export.
 
 Number field and transfer list are Tro composition recipes, not NumberField or TransferList core exports. Menubar is a Tro menu composition, not a core Menubar export. Upstream Base UI recipes require their own dependency and integration. Core exports such as Input/Select/Radio are supported using their actual names.
 
@@ -74,8 +74,8 @@ In the catalog, demonstrations are local only. No learning record, roster or act
 
 ```tsx
 import * as React from 'react';
-import Button from '@ducnguyen67201/tro-ui/Button';
-import Snackbar from '@ducnguyen67201/tro-ui/Snackbar';
+import Button from '@danielbaker06072001/featherlane-ai-ui/Button';
+import Snackbar from '@danielbaker06072001/featherlane-ai-ui/Snackbar';
 
 export default function ActivityNotice() {
   const [open, setOpen] = React.useState(false);
@@ -110,7 +110,7 @@ The catalog is a client-only Vite app. NoSsr and scoped Portal have local demos.
 
 ## Assistant discovery
 
-This file and llms.txt are packaged and copied to the catalog's public root. They do not automatically change an assistant's context. In a consuming project's AGENTS.md, explicitly instruct coding assistants to read `node_modules/@ducnguyen67201/tro-ui/llms.txt` from the installed Tro artifact, then `llms-full.txt`. For the compatibility alias, use node_modules/@mui/material/llms.txt instead. Do not invent an executable `lm.csx` configuration.
+This file and llms.txt are packaged and copied to the catalog's public root. They do not automatically change an assistant's context. In a consuming project's AGENTS.md, explicitly instruct coding assistants to read `node_modules/@danielbaker06072001/featherlane-ai-ui/llms.txt` from the installed Tro artifact, then `llms-full.txt`. For the compatibility alias, use node_modules/@mui/material/llms.txt instead. Do not invent an executable `lm.csx` configuration.
 
 ## Provenance and license
 
@@ -544,7 +544,7 @@ const isNarrow = useMediaQuery(theme.breakpoints.down("sm"));
 The assistant guide, package boundaries and a reusable project setup.
 
 ```tsx
-import { createTroTheme, ThemeProvider } from "@ducnguyen67201/tro-ui/styles";
+import { createTroTheme, ThemeProvider } from "@danielbaker06072001/featherlane-ai-ui/styles";
 const theme = createTroTheme({design: projectDesign.design});
 <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 ```
@@ -564,6 +564,6 @@ Lower-level form, card and table parts composed with the same Tro theme.
 Keep keyboard focus inside a temporary teaching prompt, then restore it to the opening action.
 
 ```tsx
-import FocusTrap from "@ducnguyen67201/tro-ui/Unstable_TrapFocus";
+import FocusTrap from "@danielbaker06072001/featherlane-ai-ui/Unstable_TrapFocus";
 <FocusTrap open={open}><Paper tabIndex={-1}><Button onClick={close}>Close focus prompt</Button></Paper></FocusTrap>
 ```

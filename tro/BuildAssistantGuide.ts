@@ -20,7 +20,7 @@ const examples = Object.entries(catalogEntries)
   )
   .join('\n');
 const fullGuide = `${guide}\n## Core public component names\n\n${componentNames.join(', ')}.\n\n## Tro catalog composition examples\n\nSnippets show relevant composition; import referenced components, provide named state/callbacks and render sibling elements in a fragment. Snippets with integration comments are recipes.\n\n${examples}`;
-const entryGuide = `# Tro UI
+const entryGuide = `# ${packageConfig.displayName}
 
 > ${packageConfig.name}@${packageConfig.version}, a Tro-branded fork of Material UI ${packageConfig.upstreamVersion}.
 

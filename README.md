@@ -1,6 +1,6 @@
-# Tro Design distribution
+# Featherlane AI UI
 
-This repository is a customized Material UI fork. The installable distribution is **@ducnguyen67201/tro-ui**; see [TroFork.md](./TroFork.md) for packaging, the one-file project configuration, the live catalog and verification limits. The original Material UI README and attribution follow below. Registry publication status must be verified separately from a local package build.
+This repository is a customized Material UI fork. The installable distribution is **@danielbaker06072001/featherlane-ai-ui**; see [TroFork.md](./TroFork.md) for packaging, the one-file project configuration, the live catalog and verification limits. The original Material UI README and attribution follow below. Registry publication status must be verified separately from a local package build.
 
 ```sh
 pnpm tro:package   # Build and pack the named fork; does not publish

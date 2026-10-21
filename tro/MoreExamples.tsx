@@ -1339,8 +1339,9 @@ export default function MoreExamples({ page, onNotice }: MoreExamplesProps) {
     return (
       <Stack spacing={3}>
         <Alert severity="info">
-          This catalog previews the local Tro fork. The distribution is @ducnguyen67201/tro-ui.
-          Registry publication requires a verified release; workspace imports remain @mui/material.
+          This catalog previews the local Tro fork. The distribution is
+          @danielbaker06072001/featherlane-ai-ui. Registry publication requires a verified release;
+          workspace imports remain @mui/material.
         </Alert>
         <Typography>
           One project setup defines colors, fonts, spacing and geometry. Component APIs remain

@@ -52,6 +52,7 @@ describe('Tro distribution packaging', () => {
     expect(formatPackageText('{{PACKAGE_NAME}}@{{PACKAGE_VERSION}}')).to.equal(
       `${packageConfig.name}@${packageConfig.version}`,
     );
+    expect(formatPackageText('{{PACKAGE_TITLE}}')).to.equal(packageConfig.displayName);
     expect(() => formatPackageText('{{MISSING_TOKEN}}')).to.throw('unresolved token');
   });
   it('rewrites self-imports and augmentations without renaming a different dependency or attribution', () => {

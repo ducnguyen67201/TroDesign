@@ -1,6 +1,6 @@
-# Tro UI
+# {{PACKAGE_TITLE}}
 
-Tro's shared design system: a customized fork of Material UI {{UPSTREAM_VERSION}}, distributed as **{{PACKAGE_NAME}}**. The fork retains the upstream MIT copyright and license notices. This package contains the actual forked components, Tro defaults and configurable theme, rather than depending on the official Material UI component package.
+Featherlane AI UI, our shared design system: a customized fork of Material UI {{UPSTREAM_VERSION}}, distributed as **{{PACKAGE_NAME}}**. The fork retains the upstream MIT copyright and license notices. This package contains the actual forked components, Tro defaults and configurable theme, rather than depending on the official Material UI component package.
 
 ## Install
 

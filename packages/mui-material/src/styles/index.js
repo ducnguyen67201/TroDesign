@@ -25,6 +25,8 @@ export function experimental_sx() {
   );
 }
 export { default as createTheme } from './createTheme';
+export { default as createTroTheme } from './createTroTheme';
+export { default as TroTokens } from './TroTokens';
 export { default as enhanceHighContrast } from './enhanceHighContrast';
 export { default as unstable_createMuiStrictModeTheme } from './createMuiStrictModeTheme';
 export { default as createStyles } from './createStyles';
@@ -58,3 +60,5 @@ export {
   applyChildrenFocusVisible as private_applyChildrenFocusVisible,
   outsetFocusRing as private_outsetFocusRing,
 } from './focusVisible';
+
+export { resolveTroDesign } from './TroDesign';

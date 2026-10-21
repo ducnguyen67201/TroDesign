@@ -1,0 +1,27 @@
+import * as React from 'react';
+import { renderToString } from 'react-dom/server';
+import Button from '{{PACKAGE_NAME}}/Button';
+import TextField from '{{PACKAGE_NAME}}/TextField';
+import Alert from '{{PACKAGE_NAME}}/Alert';
+import CssBaseline from '{{PACKAGE_NAME}}/CssBaseline';
+import {createTroTheme, ThemeProvider} from '{{PACKAGE_NAME}}/styles';
+import {projectDesign} from './ProjectDesign.js';
+
+declare module '{{PACKAGE_NAME}}/styles' {
+  interface Theme {projectName:string;}
+  interface ThemeOptions {projectName?:string;}
+}
+
+declare module '{{PACKAGE_NAME}}/Button' {
+  interface ButtonPropsVariantOverrides {studio:true;}
+}
+
+export const theme=createTroTheme({
+  design:projectDesign,
+  projectName:'Independent studio',
+  components:{MuiButton:{variants:[{props:{variant:'studio'},style:{textTransform:'none'}}]}},
+});
+
+export function renderApp(): string {
+  return renderToString(<ThemeProvider theme={theme}><CssBaseline/><Button variant="contained">Explore an idea</Button><Button variant="studio">Custom typed variant</Button><TextField label="Activity name"/><Alert severity="success">Ready to explore.</Alert></ThemeProvider>);
+}

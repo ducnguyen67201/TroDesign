@@ -239,3 +239,11 @@ Examples:
 
 - `[button] Add loading state`
 - `[docs] Fix typo in Grid documentation`
+
+## Tro fork additions
+
+For this fork's project configuration, catalog and package guidance, read `TroFork.md` and
+`packages/mui-material/llms.txt`. The latter points to the complete generated assistant guide.
+Tro additions preserve upstream public component behavior and MIT attribution. The source workspace
+retains `@mui/material`; named distribution is `@ducnguyen67201/tro-ui`; do not use upstream release
+scripts to publish the Tro fork. Assistant guide authoring sources live in `tro/`.

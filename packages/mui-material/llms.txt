@@ -1,0 +1,9 @@
+# Tro UI
+
+> @ducnguyen67201/tro-ui@9.5.0, a Tro-branded fork of Material UI 9.5.0.
+
+- [Complete assistant guide](./llms-full.txt): setup, semantic tokens, actual exports, examples, provenance and limits.
+- [Package README](./README.md): installation modes and peer dependencies.
+- [License](./LICENSE): retained core MIT terms.
+
+Use createTroTheme({design}) from @ducnguyen67201/tro-ui/styles and one project setup file. Use deep component imports. The source workspace retains @mui/material names; the release artifact is separately named. A registry release is not implied by these files. The compatibility alias @mui/material@npm:@ducnguyen67201/tro-ui@9.5.0 supports existing MUI imports and icon peers after publication.

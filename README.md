@@ -1,3 +1,14 @@
+# Tro Design distribution
+
+This repository is a customized Material UI fork. The installable distribution is **@ducnguyen67201/tro-ui**; see [TroFork.md](./TroFork.md) for packaging, the one-file project configuration, the live catalog and verification limits. The original Material UI README and attribution follow below. Registry publication status must be verified separately from a local package build.
+
+```sh
+pnpm tro:package   # Build and pack the named fork; does not publish
+pnpm tro:dev       # Preview all core component families locally
+```
+
+> **Tro Design local fork:** start with [TroFork.md](./TroFork.md) for the branded component catalog, source changes and upstream baseline. The upstream README follows for attribution and reference.
+
 <!-- lint disable mui-first-block-heading -->
 <!-- #host-reference -->
 

@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+import { readFileSync } from 'node:fs';
+import { renderApp,theme } from './build/App.js';
+import {createTroTheme,resolveTroDesign} from '{{PACKAGE_NAME}}/styles';
+import { Button as RootButton } from '{{PACKAGE_NAME}}';
+
+const require=createRequire(import.meta.url);
+const manifest=JSON.parse(readFileSync(require.resolve('{{PACKAGE_NAME}}/package.json'),'utf8'));
+assert.equal(manifest.name,'{{PACKAGE_NAME}}');
+assert.equal(manifest.version,'{{PACKAGE_VERSION}}');
+assert.equal(theme.projectName,'Independent studio');
+assert.equal(theme.shape.borderRadius,4);
+assert.equal(theme.palette.primary.main,'#245C46');
+assert.equal(theme.components.MuiSnackbarContent.styleOverrides.root.borderRadius,4);
+assert.equal(createTroTheme().palette.background.default,'#FFFCF2');
+assert.equal(resolveTroDesign().controlRadius,12);
+assert.equal(typeof RootButton,'object');
+assert.equal(typeof require('{{PACKAGE_NAME}}/Button').default,'object');
+const html=renderApp();
+assert.ok(html.includes('Explore an idea'));
+assert.ok(html.includes('Activity name'));
+assert.ok(html.toLowerCase().includes('#245c46'));
+assert.ok(html.toLowerCase().includes('georgia'));
+const guide=readFileSync(require.resolve('{{PACKAGE_NAME}}/llms-full.txt'),'utf8');
+assert.ok(guide.includes('{{PACKAGE_NAME}}/styles'));
+assert.ok(guide.includes('https://github.com/ducnguyen67201/TroDesign'));
+assert.ok(!guide.includes('PACKAGE_NAME'));
+let hasOfficialComponentPackage=true;
+try {require.resolve('@mui/material/package.json');} catch {hasOfficialComponentPackage=false;}
+assert.equal(hasOfficialComponentPackage,false);
+console.log('Independent consumer passed: own-name imports, CJS, root exports, SSR, typed theme/variant augmentation, one-file design, and assistant assets.');

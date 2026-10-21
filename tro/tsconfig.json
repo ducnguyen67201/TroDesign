@@ -1,0 +1,25 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@mui/material": ["../packages/mui-material/build/index.d.ts"],
+      "@mui/material/*": ["../packages/mui-material/build/*/index.d.ts"],
+      "@mui/system": ["../packages/mui-system/build/index.d.ts"],
+      "@mui/system/*": ["../packages/mui-system/build/*/index.d.ts"],
+      "@mui/utils": ["../packages/mui-utils/build/index.d.ts"],
+      "@mui/utils/*": ["../packages/mui-utils/build/*/index.d.ts"],
+      "@mui/private-theming": ["../packages/mui-private-theming/build/index.d.ts"],
+      "@mui/private-theming/*": ["../packages/mui-private-theming/build/*/index.d.ts"],
+      "@mui/styled-engine": ["../packages/mui-styled-engine/build/index.d.ts"],
+      "@mui/styled-engine/*": ["../packages/mui-styled-engine/build/*/index.d.ts"],
+      "@mui/types": ["../packages/mui-types/build/index.d.ts"],
+      "@mui/icons-material/*": ["../packages/mui-icons-material/lib/*.d.ts"]
+    },
+    "types": ["node", "react", "react-dom", "vite/client"]
+  },
+  "include": ["*.ts", "*.tsx", "*.mts"]
+}

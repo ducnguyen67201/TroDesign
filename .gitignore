@@ -54,3 +54,10 @@ test-results/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local Tro catalog output
+.tro-build/
+
+# Tro distribution staging and tarballs
+.tro-package/
+.tro-dist/

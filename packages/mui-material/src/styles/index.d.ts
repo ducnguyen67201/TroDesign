@@ -1,6 +1,8 @@
 import { DistributiveOmit } from '@mui/types';
 
 export { default as THEME_ID } from './identifier';
+export { default as createTroTheme } from './createTroTheme';
+export { default as TroTokens } from './TroTokens';
 export {
   default as createTheme,
   default as unstable_createMuiStrictModeTheme,
@@ -178,3 +180,7 @@ export {
   applyChildrenFocusVisible as private_applyChildrenFocusVisible,
   outsetFocusRing as private_outsetFocusRing,
 } from './focusVisible';
+
+export { resolveTroDesign } from './TroDesign';
+export type { TroDesignOptions, TroDesignColors } from './TroDesign';
+export type { TroThemeOptions } from './createTroTheme';

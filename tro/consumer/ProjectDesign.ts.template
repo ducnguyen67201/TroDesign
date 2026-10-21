@@ -1,0 +1,8 @@
+import type { TroDesignOptions } from '{{PACKAGE_NAME}}/styles';
+
+export const projectDesign = {
+  fontFamily: 'Georgia, serif',
+  controlRadius: 4,
+  cardRadius: 8,
+  colors: {light:{action:'#245C46',onAction:'#FFFFFF',canvas:'#F4F7F2'}},
+} satisfies TroDesignOptions;

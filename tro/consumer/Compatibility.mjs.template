@@ -1,0 +1,19 @@
+import assert from 'node:assert/strict';
+import React from 'react';
+import {renderToString} from 'react-dom/server';
+import {createRequire} from 'node:module';
+import Button from '@mui/material/Button';
+import {createTroTheme,ThemeProvider} from '@mui/material/styles';
+import AutoStories from '@mui/icons-material/AutoStories';
+
+const require=createRequire(import.meta.url);
+const iconRequire=createRequire(require.resolve('@mui/icons-material/AutoStories'));
+const aliasManifest=require('@mui/material/package.json');
+assert.equal(aliasManifest.name,'{{PACKAGE_NAME}}');
+assert.equal(aliasManifest.version,'{{PACKAGE_VERSION}}');
+assert.equal(iconRequire('@mui/material/package.json').name,'{{PACKAGE_NAME}}');
+assert.equal(iconRequire.resolve('@mui/material/package.json'),require.resolve('@mui/material/package.json'));
+const html=renderToString(React.createElement(ThemeProvider,{theme:createTroTheme()},React.createElement(Button,null,React.createElement(AutoStories,null),'Explore with the Tro fork')));
+assert.ok(html.includes('Explore with the Tro fork'));
+assert.ok(html.includes('<svg'));
+console.log('Compatibility consumer passed: existing @mui/material imports and Material icons resolve to the same Tro fork.');

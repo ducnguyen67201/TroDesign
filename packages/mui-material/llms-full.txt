@@ -1,0 +1,569 @@
+# Tro Design package guide
+
+Tro Design is a local fork of Material UI v9.5.0, baseline `1c3f8b4903f21cfad12c102edb3db4ceba2e8c8c`. It supplies an original Tro Open World theme and original classroom examples while retaining upstream component behavior, MIT attribution and license notices.
+
+## Package identity and installation
+
+Distribution package: **@ducnguyen67201/tro-ui@9.5.0**. The source workspace retains its upstream `@mui/material` identity for maintenance; the release builder produces a distinct package and rewrites self-imports/declaration augmentations to the distribution name. This is the actual forked component implementation, not a thin theme wrapper around the official component package.
+
+After registry publication, install `@ducnguyen67201/tro-ui` with React/React DOM and Emotion peers. Before publication, install its tested local `.tgz` artifact. Do not claim a registry release exists just because a local package builds. The GitHub fork is https://github.com/ducnguyen67201/TroDesign.
+
+For an existing app or icon integration, the compatibility installation is `@mui/material@npm:@ducnguyen67201/tro-ui@9.5.0`; retain the app's `@mui/material/...` imports in that mode. Use one installation mode consistently to avoid a duplicate official Material UI installation. Package-name imports and declaration augmentation should point to the distribution name. Material icons remain a separate package; they expect the Material UI peer, which the compatibility alias satisfies.
+
+MUI X, Lab and commercial templates are not included in the core component package. No registry installation of the official `@mui/material` package supplies Tro additions.
+
+## One configuration per project
+
+Use a typed TypeScript setup file. Import the public TroDesignOptions type from `@ducnguyen67201/tro-ui/styles`; do not import sibling repository source.
+
+```tsx
+import type { TroDesignOptions } from '@ducnguyen67201/tro-ui/styles';
+
+export const projectDesign = {
+  fontFamily: 'Arial, Helvetica, sans-serif',
+  controlRadius: 12,
+  cardRadius: 20,
+  controlHeight: 44,
+  spacingUnit: 8,
+  colors: {
+    light: { action: '#245C46', onAction: '#FFFFFF', canvas: '#F4F7F2' },
+    dark: { action: '#A4DDB5', onAction: '#10271B', canvas: '#101F19' },
+  },
+} satisfies TroDesignOptions;
+```
+
+```tsx
+import CssBaseline from '@ducnguyen67201/tro-ui/CssBaseline';
+import Button from '@ducnguyen67201/tro-ui/Button';
+import { createTroTheme, ThemeProvider } from '@ducnguyen67201/tro-ui/styles';
+import { projectDesign } from './ProjectDesign';
+
+const theme = createTroTheme({ design: projectDesign });
+
+export default function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Button variant="contained">Explore an idea</Button>
+    </ThemeProvider>
+  );
+}
+```
+
+Precedence: Tro defaults, project `design`, ordinary MUI theme options, then component props/styles. `createTheme` retains upstream semantics; `createTroTheme` applies Tro defaults. Themes are isolated. `resolveTroDesign(design, mode)` returns resolved roles for custom CSS and illustrations. Custom hardcoded styles do not automatically inherit a theme. Fonts must be loaded by the app or available on the device.
+
+## Semantic design contract
+
+Light and dark role overrides are independent. The roles are canvas, surface, text, muted, action, onAction, accent, onAccent, focus, selected, border, controlBorder, success, error, warning and tableHead. Geometry includes controlRadius, cardRadius, dialogRadius, smallRadius and controlHeight. Typography includes fontFamily and headingFontFamily. Spacing uses spacingUnit.
+
+Pair action with onAction and accent with onAccent; verify contrast for custom palettes. Use theme spacing instead of copying catalog pixel positions. Preserve visible focus, meaningful labels and minimum comfortable action sizes. Test your own light and dark configurations; the presence of a theme is not an accessibility certification.
+
+## Component usage
+
+Use one-level deep imports, for example `@ducnguyen67201/tro-ui/Autocomplete`. Prefer composed components such as TextField and Dialog for ordinary tasks. Use lower-level primitives only when the task needs them. Public component declarations in the package are the authority for prop/slot types. Do not infer that every upstream documentation recipe is a package export.
+
+Number field and transfer list are Tro composition recipes, not NumberField or TransferList core exports. Menubar is a Tro menu composition, not a core Menubar export. Upstream Base UI recipes require their own dependency and integration. Core exports such as Input/Select/Radio are supported using their actual names.
+
+## Feedback and interaction rules
+
+Use inline Alert for persistent information. Use Snackbar for noncritical updates; keep important errors in the page. Keep Escape dismissal and timer pause behavior. Give users time to read. One-at-a-time queues avoid stacking notices. Close a snackbar before its containing dialog on Escape. Use Dialog for a decision requiring focus. Restore focus to the opening action on dismissal. Menus and drawers need labels and working keyboard controls.
+
+In the catalog, demonstrations are local only. No learning record, roster or activity is saved. Use real validated application services before claiming a production action succeeded.
+
+## A complete basic notification
+
+```tsx
+import * as React from 'react';
+import Button from '@ducnguyen67201/tro-ui/Button';
+import Snackbar from '@ducnguyen67201/tro-ui/Snackbar';
+
+export default function ActivityNotice() {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <React.Fragment>
+      <Button onClick={() => setOpen(true)}>Show activity update</Button>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        message="Your activity is ready to explore."
+        onClose={(_event, reason) => {
+          if (reason !== 'clickaway') {
+            setOpen(false);
+          }
+        }}
+        action={
+          <Button color="inherit" onClick={() => setOpen(false)}>
+            Dismiss
+          </Button>
+        }
+      />
+    </React.Fragment>
+  );
+}
+```
+
+For a notification triggered from a Dialog, render its Snackbar inside that dialog's content subtree so the modal does not mark it aria-hidden. In the catalog the queued message state stays with SnackbarExamples and only the notification's rendering location changes. The queue reducer is catalog implementation, not an exported package service.
+
+## Utilities and server integration
+
+The catalog is a client-only Vite app. NoSsr and scoped Portal have local demos. InitColorSchemeScript has an integration recipe, not a client execution demo: place it before application content in server-rendered HTML and match ThemeProvider CSS-variable color-scheme settings. Do not add it to a palette-only client theme as a substitute for SSR integration. Respect reduced-motion preferences for transitions.
+
+## Assistant discovery
+
+This file and llms.txt are packaged and copied to the catalog's public root. They do not automatically change an assistant's context. In a consuming project's AGENTS.md, explicitly instruct coding assistants to read `node_modules/@ducnguyen67201/tro-ui/llms.txt` from the installed Tro artifact, then `llms-full.txt`. For the compatibility alias, use node_modules/@mui/material/llms.txt instead. Do not invent an executable `lm.csx` configuration.
+
+## Provenance and license
+
+Core code is reused under its MIT license; original notices are retained. Small visual changes do not remove license obligations or turn inherited code into wholly original work. Tro's palette, compositions and content form the project identity. Do not remove upstream license headers, present upstream customer endorsements as Tro's, or assume paid templates/MUI X Pro/Premium have the core MIT terms.
+
+## Verification limits
+
+The catalog provides working component-family examples and integration recipes. It is not an exhaustive prop/state matrix or a complete accessibility, browser compatibility or visual regression audit. A component's presence is distinct from its interaction test coverage. Check tro/Verification.md in the fork for the checks actually run. Package release checks must include the generated assistant files in the packed artifact.
+
+## Core public component names
+
+Accordion, AccordionActions, AccordionDetails, AccordionSummary, Alert, AlertTitle, AppBar, Autocomplete, Avatar, AvatarGroup, Backdrop, Badge, BottomNavigation, BottomNavigationAction, Box, Breadcrumbs, Button, ButtonBase, ButtonGroup, Card, CardActionArea, CardActions, CardContent, CardHeader, CardMedia, Checkbox, Chip, CircularProgress, ClickAwayListener, Collapse, Container, CssBaseline, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Drawer, Fab, Fade, FilledInput, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, Grid, Grow, Icon, IconButton, ImageList, ImageListItem, ImageListItemBar, Input, InputAdornment, InputBase, InputLabel, LinearProgress, Link, List, ListItem, ListItemAvatar, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText, ListSubheader, Menu, MenuItem, MenuList, MobileStepper, Modal, NativeSelect, NoSsr, OutlinedInput, Pagination, PaginationItem, Paper, Popover, Popper, Portal, Radio, RadioGroup, Rating, ScopedCssBaseline, Select, Skeleton, Slide, Slider, Snackbar, SnackbarContent, SpeedDial, SpeedDialAction, SpeedDialIcon, Stack, Step, StepButton, StepConnector, StepContent, StepIcon, StepLabel, Stepper, SvgIcon, SwipeableDrawer, Switch, Tab, Table, TableBody, TableCell, TableContainer, TableFooter, TableHead, TablePagination, TablePaginationActions, TableRow, TableSortLabel, Tabs, TabScrollButton, TextField, TextareaAutosize, ToggleButton, ToggleButtonGroup, Toolbar, Tooltip, Typography, Zoom, GlobalStyles, Unstable_TrapFocus, InitColorSchemeScript.
+
+## Tro catalog composition examples
+
+Snippets show relevant composition; import referenced components, provide named state/callbacks and render sibling elements in a fragment. Snippets with integration comments are recipes.
+
+## Autocomplete
+
+Search a set of activities and choose a suggestion.
+
+```tsx
+<Autocomplete options={["Build a rover", "Make a story"]} renderInput={(params) => <TextField {...params} label="Activity" />} />
+```
+
+## Button group
+
+Related actions share a border and a clear order.
+
+```tsx
+<ButtonGroup><Button>Previous</Button><Button>Next</Button></ButtonGroup>
+```
+
+## Checkbox
+
+Independent choices, including mixed and disabled states.
+
+```tsx
+<FormControlLabel control={<Checkbox defaultChecked />} label="Include materials" />
+```
+
+## Floating action button
+
+One prominent creation action with a visible name.
+
+```tsx
+<Fab color="primary" aria-label="Create activity">+</Fab>
+```
+
+## Number field
+
+A native numeric input composed with Tro form controls. This is a recipe, not an exported NumberField component.
+
+```tsx
+<TextField type="number" label="Learners" slotProps={{htmlInput:{min:1,max:30,step:1}}} />
+```
+
+## Radio group
+
+Choose one learning format from a labelled group.
+
+```tsx
+<FormControl><FormLabel>Format</FormLabel><RadioGroup defaultValue="studio"><FormControlLabel value="studio" control={<Radio />} label="Studio" /></RadioGroup></FormControl>
+```
+
+## Rating
+
+A named rating with editable, read-only and disabled examples.
+
+```tsx
+<Rating name="activity-rating" defaultValue={4} />
+```
+
+## Select
+
+Single, native and multiple choice fields with persistent labels.
+
+```tsx
+<TextField select label="Level" defaultValue="beginner"><MenuItem value="beginner">Beginner</MenuItem></TextField>
+```
+
+## Slider
+
+Choose an activity duration with keyboard-adjustable values.
+
+```tsx
+<Slider aria-label="Activity duration" defaultValue={30} min={10} max={90} valueLabelDisplay="auto" />
+```
+
+## Switch
+
+An explicit label describes the setting being changed.
+
+```tsx
+<FormControlLabel control={<Switch defaultChecked />} label="Show hints" />
+```
+
+## Transfer list
+
+Move selected materials between two labelled lists. A composition recipe, not a TransferList export.
+
+```tsx
+<List aria-label="Available materials"><ListItem disablePadding><ListItemButton><ListItemText primary="Motion blocks" /></ListItemButton></ListItem></List>
+```
+
+## Toggle button
+
+A labelled, exclusive choice of workspace view.
+
+```tsx
+<ToggleButtonGroup exclusive value="board" aria-label="Workspace view"><ToggleButton value="board">Board</ToggleButton><ToggleButton value="list">List</ToggleButton></ToggleButtonGroup>
+```
+
+## Avatar
+
+Initials and grouped identities without external profile photographs.
+
+```tsx
+<AvatarGroup max={3}><Avatar>AL</Avatar><Avatar>MK</Avatar><Avatar>JS</Avatar></AvatarGroup>
+```
+
+## Badge
+
+Small counts supplement a clearly named action.
+
+```tsx
+<Badge badgeContent={4} color="secondary"><Button>Feedback</Button></Badge>
+```
+
+## Chip
+
+Compact labels with selectable and removable examples.
+
+```tsx
+<Chip label="Robotics" variant="outlined" onDelete={removeTag} />
+```
+
+## Divider
+
+Quiet structure between related content, with a label when useful.
+
+```tsx
+<Divider>Next activity</Divider>
+```
+
+## Icons
+
+Original Tro path symbols use the current theme color and explicit accessible names.
+
+```tsx
+<SvgIcon titleAccess="Explore"><path d="M4 18 12 4l8 14z" fill="none" stroke="currentColor" /></SvgIcon>
+```
+
+## Material icons
+
+Optional upstream icon-package examples, recolored through Tro. Original icon notices are retained.
+
+```tsx
+import AutoStories from "@mui/icons-material/AutoStories";
+<AutoStories titleAccess="Learning materials" color="primary" />
+```
+
+## List
+
+A classroom roster with secondary text, avatars and an explicit action.
+
+```tsx
+<List><ListItem><ListItemAvatar><Avatar>AL</Avatar></ListItemAvatar><ListItemText primary="Alex" secondary="Exploring motion" /></ListItem></List>
+```
+
+## Tooltip
+
+Supplementary hints appear on hover or keyboard focus. Essential labels remain visible.
+
+```tsx
+<Tooltip title="Open the activity guide"><Button>Activity guide</Button></Tooltip>
+```
+
+## Backdrop
+
+A blocking overlay for a deliberate, brief task. Escape or the close action dismisses this example.
+
+```tsx
+<Backdrop open={open} onClick={close}><Button color="inherit" onClick={close}>Close preview</Button></Backdrop>
+```
+
+## Skeleton
+
+Content placeholders preserve layout while information is loading.
+
+```tsx
+<Skeleton variant="rounded" height={120} /><Skeleton width="75%" /><Skeleton width="45%" />
+```
+
+## Accordion
+
+Expandable activity details with linked headings and content.
+
+```tsx
+<Accordion><AccordionSummary>Activity materials</AccordionSummary><AccordionDetails>Paper, blocks and an idea.</AccordionDetails></Accordion>
+```
+
+## App bar
+
+A quiet workspace header with a named menu action.
+
+```tsx
+<AppBar position="static" color="default"><Toolbar><Typography variant="h6">Learning studio</Typography></Toolbar></AppBar>
+```
+
+## Paper
+
+Outlined and elevated surfaces inherit the project canvas and geometry.
+
+```tsx
+<Paper variant="outlined" sx={{p:3}}>A place to start.</Paper>
+```
+
+## Bottom navigation
+
+A compact choice of primary destinations with persistent labels.
+
+```tsx
+<BottomNavigation showLabels value={value} onChange={(_event,next) => setValue(next)}><BottomNavigationAction label="Explore" icon={<ExploreIcon />} /></BottomNavigation>
+```
+
+## Breadcrumbs
+
+A readable path back through a learning workspace.
+
+```tsx
+<Breadcrumbs aria-label="Breadcrumb"><Link href="#content">Studio</Link><Typography>Motion lab</Typography></Breadcrumbs>
+```
+
+## Drawer
+
+A temporary destination panel with working focus and Escape behavior.
+
+```tsx
+<Drawer open={open} onClose={close}><Box sx={{p:3}}><Button onClick={close}>Close workspace menu</Button></Box></Drawer>
+```
+
+## Link
+
+Underlined text links remain recognizable within sentences.
+
+```tsx
+<Link href="#content" underline="always">Explore the learning guide</Link>
+```
+
+## Menu
+
+Anchored actions include grouping, shortcuts and disabled items.
+
+```tsx
+<Menu anchorEl={anchor} open={Boolean(anchor)} onClose={close}><MenuItem onClick={close}>Duplicate activity</MenuItem></Menu>
+```
+
+## Menubar
+
+A Tro toolbar composition of menus with arrow-key navigation between triggers. No Menubar export is implied.
+
+```tsx
+<Box role="menubar" aria-label="Studio actions">{/* Named Button triggers and anchored Menu panels */}</Box>
+```
+
+## Pagination
+
+Select a results page and adjust table page size.
+
+```tsx
+<Pagination count={8} page={page} onChange={(_event,next) => setPage(next)} />
+```
+
+## Speed dial
+
+An expandable group of creation shortcuts with accessible names.
+
+```tsx
+<SpeedDial ariaLabel="Create in studio" icon={<SpeedDialIcon />}><SpeedDialAction icon={<span>+</span>} slotProps={{tooltip:{title:"New activity"}}} /></SpeedDial>
+```
+
+## Stepper
+
+A short learning workflow shows progress and supports moving back.
+
+```tsx
+<Stepper activeStep={1}><Step><StepLabel>Explore</StepLabel></Step><Step><StepLabel>Create</StepLabel></Step></Stepper>
+```
+
+## Tabs
+
+Related views use linked tab and panel semantics.
+
+```tsx
+<Tabs value={value} onChange={(_event,next) => setValue(next)} aria-label="Activity views"><Tab label="Explore" /><Tab label="Create" /></Tabs>
+```
+
+## Box
+
+The basic layout surface consumes theme spacing and colors.
+
+```tsx
+<Box sx={{p:3,bgcolor:"background.paper",border:1,borderColor:"divider",borderRadius:2}}>Make room for an idea.</Box>
+```
+
+## Container
+
+Readable content width with responsive horizontal gutters.
+
+```tsx
+<Container maxWidth="sm"><Typography>A focused learning space.</Typography></Container>
+```
+
+## Grid
+
+Responsive columns collapse into one column on narrow screens.
+
+```tsx
+<Grid container spacing={2}><Grid size={{xs:12,sm:6}}>Explore</Grid><Grid size={{xs:12,sm:6}}>Create</Grid></Grid>
+```
+
+## Stack
+
+A consistent spacing rhythm for horizontal and vertical content.
+
+```tsx
+<Stack direction={{xs:"column",sm:"row"}} spacing={2}><Chip label="Explore" /><Chip label="Create" /></Stack>
+```
+
+## Image list
+
+Original local learning illustrations in a responsive gallery.
+
+```tsx
+<ImageList cols={2}><ImageListItem><img src="/LearningTrail.svg" alt="A learning path" /><ImageListItemBar title="Explore motion" /></ImageListItem></ImageList>
+```
+
+## Click-away listener
+
+Dismiss a small teaching hint by clicking outside it.
+
+```tsx
+<ClickAwayListener onClickAway={close}><Box><Button onClick={toggle}>Show hint</Button>{open && <Paper>Try one small change.</Paper>}</Box></ClickAwayListener>
+```
+
+## CSS baseline
+
+The catalog applies a global baseline. A scoped baseline can isolate a smaller subtree.
+
+```tsx
+<><CssBaseline /><ScopedCssBaseline><Typography>Scoped reading surface</Typography></ScopedCssBaseline></>
+```
+
+## Color scheme script
+
+An integration recipe for avoiding color-scheme flashes in server-rendered apps. It is not executed inside this client-only preview.
+
+```tsx
+// Put before application content in server-rendered HTML.
+<InitColorSchemeScript attribute="class" />
+// Pair with a ThemeProvider using matching CSS-variable color schemes.
+```
+
+## Modal
+
+An accessible, labelled overlay with focus management and a close action.
+
+```tsx
+<Modal open={open} onClose={close} aria-labelledby="modal-title"><Paper tabIndex={-1}><Typography id="modal-title">A new idea</Typography><Button onClick={close}>Close</Button></Paper></Modal>
+```
+
+## No SSR
+
+Defer a client-only subtree while preserving a readable fallback.
+
+```tsx
+<NoSsr fallback={<span>Preparing studio…</span>}><Chip label="Client preview ready" /></NoSsr>
+```
+
+## Popover
+
+An anchored explanatory surface with Escape dismissal.
+
+```tsx
+<Popover open={Boolean(anchor)} anchorEl={anchor} onClose={close}><Typography sx={{p:3}}>Start with a question.</Typography></Popover>
+```
+
+## Popper
+
+A positioned hint that follows its anchor and closes on click-away.
+
+```tsx
+<Popper open={Boolean(anchor)} anchorEl={anchor}><Paper sx={{p:2}}>Try a smaller step.</Paper></Popper>
+```
+
+## Portal
+
+Render an annotation into a separate, explicitly scoped DOM container.
+
+```tsx
+<Portal container={targetElement}><Chip label="Rendered in the annotation area" /></Portal>
+```
+
+## Textarea autosize
+
+A labelled writing area grows as the learner writes.
+
+```tsx
+<TextareaAutosize aria-label="Learning reflection" minRows={3} placeholder="What did you discover?" />
+```
+
+## Transitions
+
+Fade, collapse, grow, slide and zoom use a shared reduced-motion preference.
+
+```tsx
+<Fade in={visible}><Paper sx={{p:2}}>One idea becomes another.</Paper></Fade>
+```
+
+## Media query
+
+A responsive hint reflects the current viewport without guessing device identity.
+
+```tsx
+const isNarrow = useMediaQuery(theme.breakpoints.down("sm"));
+```
+
+## Package guide
+
+The assistant guide, package boundaries and a reusable project setup.
+
+```tsx
+import { createTroTheme, ThemeProvider } from "@ducnguyen67201/tro-ui/styles";
+const theme = createTroTheme({design: projectDesign.design});
+<ThemeProvider theme={theme}>{children}</ThemeProvider>;
+```
+
+## Component parts
+
+Lower-level form, card and table parts composed with the same Tro theme.
+
+```tsx
+// Prefer TextField and Card for ordinary screens.
+// Compose primitives only when the task needs a custom structure.
+<FormControl><InputLabel htmlFor="idea">Idea</InputLabel><Input id="idea" /></FormControl>
+```
+
+## Focus containment
+
+Keep keyboard focus inside a temporary teaching prompt, then restore it to the opening action.
+
+```tsx
+import FocusTrap from "@ducnguyen67201/tro-ui/Unstable_TrapFocus";
+<FocusTrap open={open}><Paper tabIndex={-1}><Button onClick={close}>Close focus prompt</Button></Paper></FocusTrap>
+```

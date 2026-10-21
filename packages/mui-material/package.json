@@ -25,8 +25,8 @@
     "url": "https://opencollective.com/mui-org"
   },
   "scripts": {
-    "prebuild": "node ./scripts/stagePublishedDocs.mjs",
-    "build": "code-infra build --tsgo --flat --copy \"published-docs/**:docs\"",
+    "prebuild": "pnpm --workspace-root tro:guide && node ./scripts/stagePublishedDocs.mjs",
+    "build": "code-infra build --tsgo --flat --copy \"published-docs/**:docs\" --copy \"llms*.txt\" --copy \"AGENTS.md\"",
     "release": "pnpm build && pnpm publish",
     "test": "pnpm --workspace-root test:unit --project \"*:@mui/material\"",
     "typescript": "tsc -p tsconfig.json",
@@ -121,7 +121,9 @@
     "./useMediaQuery": "./src/useMediaQuery/index.ts",
     "./utils": "./src/utils/index.ts",
     "./version": "./src/version/index.ts",
-    "./*": "./src/*/index.js"
+    "./*": "./src/*/index.js",
+    "./llms.txt": "./llms.txt",
+    "./llms-full.txt": "./llms-full.txt"
   },
   "pigment-css": {
     "vite": {

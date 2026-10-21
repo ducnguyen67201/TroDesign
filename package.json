@@ -1,10 +1,10 @@
 {
-  "name": "@mui/monorepo",
+  "name": "@tro/design-monorepo",
   "version": "9.5.0",
   "private": true,
   "//": "#target-branch-reference: scripts.prettier",
   "scripts": {
-    "preinstall": "npx only-allow@1.2.2 pnpm",
+    "preinstall": "node ./tro/CheckPackageManager.mjs",
     "proptypes": "tsx ./scripts/generateProptypes.ts",
     "deduplicate": "pnpm dedupe",
     "build": "lerna run build --ignore docs",
@@ -74,7 +74,15 @@
     "use-react-version": "node ./scripts/useReactVersion.mjs",
     "validate-declarations": "tsx scripts/validateTypescriptDeclarations.mts",
     "generate-codeowners": "node scripts/generateCodeowners.mjs",
-    "clean": "pnpm -r exec rm -rf build"
+    "clean": "pnpm -r exec rm -rf build",
+    "tro:dev": "pnpm tro:guide && vite --config tro/vite.config.mts",
+    "tro:build": "pnpm tro:guide && vite build --config tro/vite.config.mts",
+    "tro:typecheck": "tsc -p tro/tsconfig.json",
+    "tro:guide": "tsx tro/BuildAssistantGuide.ts",
+    "tro:test": "vitest run --config tro/vitest.config.mts",
+    "tro:package": "pnpm --filter @mui/material... build && tsx tro/StagePackage.ts && tsx tro/PackPackage.ts",
+    "tro:publish": "tsx tro/PublishPackage.ts",
+    "tro:verify-package": "tsx tro/VerifyPackage.ts"
   },
   "dependencies": {
     "@netlify/functions": "^6.0.0",
@@ -106,6 +114,7 @@
     "@types/ip": "1.1.3",
     "@types/node": "20.19.43",
     "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
     "@types/yargs": "17.0.35",
     "@typescript/native": "npm:typescript@7.0.2",
     "@vitejs/plugin-react": "^6.0.0",

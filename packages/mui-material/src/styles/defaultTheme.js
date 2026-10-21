@@ -1,6 +1,6 @@
 'use client';
-import createTheme from './createTheme';
+import createTroTheme from './createTroTheme';
 
-const defaultTheme = createTheme();
+const defaultTheme = createTroTheme();
 
 export default defaultTheme;
